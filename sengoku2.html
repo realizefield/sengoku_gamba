@@ -4,222 +4,46 @@
 <meta charset="UTF-8">
 <title>歴史学習GAMBA：sengoku2</title>
 <style>
-  body {
-    font-family: "Meiryo", sans-serif;
-    max-width: 960px;
-    margin: 20px auto;
-    line-height: 1.8;
-    background-color: #f4f4f9;
-    font-size: 16px;
-    padding-bottom: 300px; /* 下部固定ボタンのための余白 */
-  }
+  body { font-family: "Meiryo", sans-serif; max-width: 960px; margin: 20px auto; line-height: 1.8; background-color: #f4f4f9; font-size: 16px; padding-bottom: 300px; }
+  h1 { border-bottom: 2px solid #d32f2f; padding-bottom: 8px; font-size: 24px; }
+  h2 { margin-top: 18px; margin-bottom: 8px; font-size: 20px; border-left: 5px solid #d32f2f; padding-left: 10px; }
+  
+  /* ナビゲーションボタン */
+  .step-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 20px 0; justify-content: flex-start; }
+  .step { flex: 1; min-width: 130px; text-align: center; padding: 10px 4px; border-radius: 999px; background-color: #ddd; font-size: 13px; cursor: pointer; border: 1px solid #ccc; transition: 0.3s; }
+  .step.active { background-color: #e0f0ff; border: 1px solid #1976d2; font-weight: bold; }
+  
+  /* 語群の固定表示 */
+  .word-bank-sticky-container { position: sticky; top: 0; z-index: 1001; background-color: #f4f4f9; padding: 10px 0; border-bottom: 2px solid #ccc; }
+  .word-bank { border: 2px solid #d32f2f; border-radius: 8px; padding: 12px; min-height: 60px; display: flex; flex-wrap: wrap; gap: 8px; background-color: #fff; display: none; }
+  
+  .word-chip { padding: 8px 12px; border-radius: 18px; border: 1px solid #666; background-color: #fff; cursor: pointer; font-size: 14px; }
+  .word-chip.used { opacity: 0.3; }
+  .word-chip.selected-chip { border-color: #1976d2; background-color: #e3f2fd; box-shadow: 0 0 0 2px #bbdefb; }
+  
+  .section { background-color: #fff; border-radius: 8px; padding: 20px; border: 1px solid #ccc; margin-bottom: 16px; }
+  .blank { display: inline-block; min-width: 100px; min-height: 26px; border-bottom: 2px solid #d32f2f; margin: 0 4px; text-align: center; vertical-align: middle; cursor: pointer; font-weight: bold; color: #d32f2f; }
+  .blank.correct { background-color: #ffeb3b; }
+  
+  /* 地図画像のスタイル */
+  .map-container { text-align: center; margin: 20px 0; }
+  .map-image { max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px; }
 
-  h1 {
-    margin-bottom: 8px;
-    border-bottom: 2px solid #d32f2f;
-    padding-bottom: 8px;
-    font-size: 24px;
-  }
-a
-  h2 {
-    margin-top: 18px;
-    margin-bottom: 8px;
-    font-size: 20px;
-    border-left: 5px solid #d32f2f;
-    padding-left: 10px;
-  }
-
-  .step-bar {
-    display: flex;
-    gap: 8px;
-    margin: 16px 0 20px 0;
-    justify-content: space-between;
-  }
-
-  .step {
-    flex: 1;
-    text-align: center;
-    padding: 6px 4px;
-    border-radius: 999px;
-    background-color: #ddd;
-    font-size: 13px;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .step.active {
-    background-color: #e0f0ff;
-    border: 1px solid #1976d2;
-  }
-
-  /* 語群を画面上部に固定する設定 */
-  .word-bank-sticky-container {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 1001;
-    background-color: #f4f4f9;
-    padding: 10px 0;
-    border-bottom: 2px solid #ccc;
-  }
-
-  .word-bank-title {
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-
-  .word-bank {
-    border: 2px solid #d32f2f;
-    border-radius: 8px;
-    padding: 12px;
-    min-height: 60px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    background-color: #fff;
-    display: none; /* チャレンジ開始まで非表示 */
-  }
-
-  .word-chip {
-    padding: 8px 12px;
-    border-radius: 18px;
-    border: 1px solid #666;
-    background-color: #fff;
-    cursor: pointer;
-    user-select: none;
-    font-size: 14px;
-  }
-
-  .word-chip.used {
-    opacity: 0.3;
-    cursor: default;
-  }
-
-  .word-chip.selected-chip {
-    border-color: #1976d2;
-    background-color: #e3f2fd;
-    box-shadow: 0 0 0 2px #bbdefb;
-  }
-
-  .section {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    margin-bottom: 16px;
-  }
-
-  .blank {
-    display: inline-block;
-    min-width: 100px;
-    min-height: 26px;
-    border-bottom: 2px solid #d32f2f;
-    margin: 0 4px;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    background-color: #fff;
-    font-weight: bold;
-    color: #d32f2f;
-  }
-
-  .blank.correct {
-    background-color: #ffeb3b;
-  }
-
-  /* ボタン群を画面最下部に固定する設定 */
-  .fixed-footer-controls {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    border-top: 2px solid #ccc;
-    padding: 15px 0;
-    z-index: 1000;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-  }
-
-  .footer-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 20px;
-    text-align: center;
-  }
-
-  .controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-  }
-
-  button {
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: bold;
-    box-shadow: 0 3px 0 #0056b3;
-  }
-
-  button:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 #0056b3;
-  }
-
-  button.secondary {
-    background-color: #6c757d;
-    box-shadow: 0 3px 0 #495057;
-  }
-
-  button:disabled {
-    opacity: 0.5;
-    cursor: default;
-    box-shadow: none;
-  }
-
-  .timer-info {
-    margin-top: 10px;
-    padding: 6px 15px;
-    font-size: 16px;
-    color: #222;
-    border-radius: 6px;
-    border: 1px solid #007bff;
-    background-color: #fff;
-    display: inline-block;
-  }
-
-  .explain-box {
-    margin-top: 15px;
-    padding: 15px;
-    border-left: 5px solid #007bff;
-    background-color: #f0f4ff;
-    display: none;
-    text-align: left;
-    font-size: 15px;
-  }
-
-  .result-message {
-    margin-left: 15px;
-    font-weight: bold;
-    color: #d32f2f;
-    font-size: 18px;
-  }
+  .fixed-footer-controls { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #fff; border-top: 2px solid #ccc; padding: 15px 0; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+  .footer-inner { max-width: 960px; margin: 0 auto; padding: 0 20px; text-align: center; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  button { padding: 10px 20px; border-radius: 8px; border: none; background-color: #007bff; color: #fff; cursor: pointer; font-size: 15px; font-weight: bold; box-shadow: 0 3px 0 #0056b3; }
+  .timer-info { margin-top: 10px; padding: 6px 15px; font-size: 16px; border: 1px solid #007bff; background-color: #fff; display: inline-block; }
 </style>
 </head>
 <body>
 
-<h1>②. 香辛料を求めて「大航海時代」へ</h1>
+<h1>② 香辛料を求めて「大航海時代」へ</h1>
 
 <div class="step-bar">
   <div class="step" onclick="location.href='sengoku1.html'">① 十字軍とルネサンス</div>
-  <div class="step" onclick="location.href='sengoku2.html'">② 新航路の発見</div>
-  <div class="step active">③ 宗教改革と伝来</div>
+  <div class="step active">② 新航路の発見</div>
+  <div class="step" onclick="location.href='sengoku3.html'">③ 宗教改革と伝来</div>
   <div class="step" onclick="location.href='sengoku4.html'">④ 鉄砲伝来と南蛮貿易</div>
   <div class="step" onclick="location.href='sengoku5.html'">⑤ 織田信長の統一</div>
   <div class="step" onclick="location.href='sengoku6.html'">⑥ 豊臣秀吉の統一</div>
@@ -227,30 +51,27 @@ a
 </div>
 
 <div class="word-bank-sticky-container">
-  <div class="word-bank-title">【語群】（チャレンジ開始を押すとここに語句が出ます）</div>
+  <div style="font-weight:bold; font-size:14px; margin-bottom:5px;">【語群】（チャレンジ開始で表示）</div>
   <div class="word-bank" id="word-bank"></div>
 </div>
 
 <div class="section">
-  <h2>2. 世界を変えた「ルネサンスの三大発明」</h2>
+  <h2>ルネサンスの三大発明と航海</h2>
   <div class="question-text">
-    ルネサンスの時代には、科学技術も飛躍的に進歩しました。特に重要だったのが以下の３つです。<br><br>
-    1. <span class="blank" data-id="A">活版印刷術</span>: 知識がより多くの人に広まるようになりました。<br>
-    2. <span class="blank" data-id="B">火薬</span>: 鉄砲などの武器が発達し、戦い方が変わりました。<br>
-    3. <span class="blank" data-id="C">羅針盤（らしんばん）</span>: これが航海術に革命をもたらします。<br><br>
-    <span class="blank" data-id="D">羅針盤</span>が航海術を大きく変えたのはなぜ？ 以前は星を頼りに船を動かしていたため、夜間しか航行できませんでした。しかし、<span class="blank" data-id="E">羅針盤</span>の発展により、昼夜を問わず正確な方向がわかるようになり、遠くの海へ挑戦することが可能になったのです。<br><br>
-    当時のヨーロッパでは、肉食の流行によって、肉の臭みを消すコショウなどの<span class="blank" data-id="F">香辛料</span>の需要が高まっていました。それまでは陸路で運ばれていましたが、西アジアをイスラム帝国が支配したため、海を渡って直接手に入れに行く必要が生じました。<br><br>
-    香辛料はどこで手に入れられたの？ 当時は、フィリピンのモルッカ諸島付近で作られていました。
+    科学技術では、知識を広めた<span class="blank" data-id="A">活版印刷術</span>、戦い方を変えた<span class="blank" data-id="B">火薬</span>、そして遠洋航海を可能にした<span class="blank" data-id="C">羅針盤（らしんばん）</span>が発明されました。ヨーロッパ人は、肉の臭みを消す<span class="blank" data-id="D">香辛料</span>を直接手に入れるため、新航路の開拓に挑みました。
   </div>
 </div>
 
 <div class="section">
-  <h2>主要な航海者と航路</h2>
+  <h2>主要な航海者とルート</h2>
+  <div class="map-container">
+    <img src="shinkouro.png" alt="新航路の地図" class="map-image">
+      </div>
   <div class="question-text">
     <ul>
-      <li>（コース A）<span class="blank" data-id="G">コロンブス</span>: スペインの援助を受けたイタリアの探検家で、インドへいくつもりがアメリカを発見しました。</li>
-      <li>（コース B）<span class="blank" data-id="H">バスコ・ダ・ガマ</span>: ポルトガルの探検家で、アフリカ南端の喜望峰をまわり、インドのカリカットへの航路を開いて香辛料で大金を得ました。</li>
-      <li>（コース C）<span class="blank" data-id="I">マゼラン</span>: スペインの支援を受けたポルトガルの探検家で、初めて地球一周を行い、地球が球体であることを示しました（本人はフィリピンで死亡し、部下が達成）。</li>
+      <li><strong>ルート A：</strong> <span class="blank" data-id="E">コロンブス</span> … スペインの援助を受け、大西洋を横断してアメリカ大陸に到達しました。</li>
+      <li><strong>ルート B：</strong> <span class="blank" data-id="F">バスコ・ダ・ガマ</span> … アフリカ南端の喜望峰を回り、インド航路を開拓しました。</li>
+      <li><strong>ルート C：</strong> <span class="blank" data-id="G">マゼラン</span> … 初めて地球一周を成し遂げ（本人は途上で死亡）、地球が球体であることを証明しました。</li>
     </ul>
   </div>
 </div>
@@ -260,133 +81,46 @@ a
     <div class="controls">
       <button onclick="startChallenge()">チャレンジ開始</button>
       <button onclick="checkAnswers()">判定</button>
-      <button class="secondary" onclick="location.reload()">この段落をやり直す</button>
-      <button class="secondary" onclick="resetTimer()">時間リセット</button>
-      <button id="next-btn" onclick="location.href='sengoku3.html'" disabled>次の段落へ進む ▶</button>
-      <button class="secondary" onclick="toggleExplain()">【解説】を見る</button>
-      <span id="result" class="result-message"></span>
+      <button onclick="location.href='sengoku3.html'">③ 宗教改革へ進む ▶</button>
     </div>
-    <div class="timer-info" id="timer-display">経過時間：---　（まだ記録がありません）</div>
-    <div class="explain-box" id="explain-box">
-      <strong>【解説】</strong><br>
-      ルネサンスの三大発明（活版印刷術・火薬・羅針盤）の中でも、羅針盤は遠洋航海を可能にする決定的な技術となりました。肉食の普及により需要が高まった香辛料を求め、ポルトガルやスペインの航海者たちが未知の海へと漕ぎ出し、世界がつながる「大航海時代」が幕を開けました。
-    </div>
+    <div class="timer-info" id="timer-display">経過時間：---</div>
   </div>
 </div>
 
 <script>
-  // 資料に基づいた正確な答え
-  const answers = {
-    A: "活版印刷術",
-    B: "火薬",
-    C: "羅針盤（らしんばん）",
-    D: "羅針盤",
-    E: "羅針盤",
-    F: "香辛料",
-    G: "コロンブス",
-    H: "バスコ・ダ・ガマ",
-    I: "マゼラン"
-  };
-
+  const answers = { A:"活版印刷術", B:"火薬", C:"羅針盤（らしんばん）", D:"香辛料", E:"コロンブス", F:"バスコ・ダ・ガマ", G:"マゼラン" };
   let startTime, timerId, selectedChip = null;
 
-  // 語群の生成（重複を排除してシャッフル）
   function renderBank() {
-    const bank = document.getElementById('word-bank');
-    bank.style.display = "flex";
-    bank.innerHTML = "";
-    const uniqueWords = [...new Set(Object.values(answers))];
-    uniqueWords.sort(() => Math.random() - 0.5).forEach(word => {
-      const chip = document.createElement('div');
-      chip.className = 'word-chip';
-      chip.textContent = word;
-      chip.onclick = () => {
-        if (chip.classList.contains('used')) return;
-        document.querySelectorAll('.word-chip').forEach(c => c.classList.remove('selected-chip'));
-        selectedChip = chip;
-        chip.classList.add('selected-chip');
-      };
+    const bank = document.getElementById('word-bank'); bank.style.display = "flex"; bank.innerHTML = "";
+    [...new Set(Object.values(answers))].sort(() => Math.random() - 0.5).forEach(word => {
+      const chip = document.createElement('div'); chip.className = 'word-chip'; chip.textContent = word;
+      chip.onclick = () => { document.querySelectorAll('.word-chip').forEach(c => c.classList.remove('selected-chip')); selectedChip = chip; chip.classList.add('selected-chip'); };
       bank.appendChild(chip);
     });
   }
 
-  // チャレンジ開始：空欄にしてタイマー始動
   function startChallenge() {
-    document.querySelectorAll('.blank').forEach(b => {
-      b.textContent = "";
-      b.classList.remove('correct');
-    });
-    renderBank();
-    startTime = Date.now();
-    if (timerId) clearInterval(timerId);
-    timerId = setInterval(() => {
-      const elapsed = Math.floor((Date.now() - startTime) / 1000);
-      document.getElementById('timer-display').textContent = `経過時間：${elapsed}秒`;
-    }, 1000);
-    document.getElementById('result').textContent = "";
+    document.querySelectorAll('.blank').forEach(b => { b.textContent = ""; b.classList.remove('correct'); });
+    renderBank(); startTime = Date.now(); if (timerId) clearInterval(timerId);
+    timerId = setInterval(() => { document.getElementById('timer-display').textContent = `経過時間：${Math.floor((Date.now() - startTime) / 1000)}秒`; }, 1000);
   }
 
-  // 空欄をクリックした時の処理
   document.querySelectorAll('.blank').forEach(blank => {
     blank.onclick = () => {
       if (selectedChip) {
-        // すでに何か入っていたら語群の「使用済み」を解除
-        const oldText = blank.textContent;
-        if (oldText) {
-          document.querySelectorAll('.word-chip').forEach(c => {
-            if (c.textContent === oldText) c.classList.remove('used');
-          });
-        }
-        // 新しい語句をセット
-        blank.textContent = selectedChip.textContent;
-        selectedChip.classList.add('used');
-        selectedChip.classList.remove('selected-chip');
-        selectedChip = null;
+        const oldText = blank.textContent; if (oldText) document.querySelectorAll('.word-chip').forEach(c => { if(c.textContent === oldText) c.classList.remove('used'); });
+        blank.textContent = selectedChip.textContent; selectedChip.classList.add('used'); selectedChip.classList.remove('selected-chip'); selectedChip = null;
       } else if (blank.textContent) {
-        // 入っている語句を戻す
-        const txt = blank.textContent;
-        document.querySelectorAll('.word-chip').forEach(c => {
-          if (c.textContent === txt) c.classList.remove('used');
-        });
-        blank.textContent = "";
+        const txt = blank.textContent; document.querySelectorAll('.word-chip').forEach(c => { if(c.textContent === txt) c.classList.remove('used'); }); blank.textContent = "";
       }
     };
   });
 
-  // 判定処理
   function checkAnswers() {
-    let allOk = true;
-    document.querySelectorAll('.blank').forEach(b => {
-      if (b.textContent === answers[b.dataset.id]) {
-        b.classList.add('correct');
-      } else {
-        allOk = false;
-        b.classList.remove('correct');
-      }
-    });
-
-    const res = document.getElementById('result');
-    if (allOk) {
-      clearInterval(timerId);
-      res.textContent = "合格おめでとう！";
-      res.style.color = "blue";
-      document.getElementById('next-btn').disabled = false;
-    } else {
-      res.textContent = "間違いがあります。";
-      res.style.color = "red";
-    }
-  }
-
-  function resetTimer() {
-    clearInterval(timerId);
-    document.getElementById('timer-display').textContent = "経過時間：---";
-  }
-
-  function toggleExplain() {
-    const box = document.getElementById('explain-box');
-    box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+    let ok = true; document.querySelectorAll('.blank').forEach(b => { if (b.textContent === answers[b.dataset.id]) b.classList.add('correct'); else ok = false; });
+    if (ok) { clearInterval(timerId); alert("合格！全問クリアです。"); }
   }
 </script>
-
 </body>
 </html>
