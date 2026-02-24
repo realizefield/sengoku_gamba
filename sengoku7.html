@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>歴史学習GAMBA：sengoku7</title>
+<style>/* 同上のスタイル */
+  body { font-family: "Meiryo", sans-serif; max-width: 960px; margin: 20px auto; line-height: 1.8; background-color: #f4f4f9; font-size: 16px; padding-bottom: 300px; }
+  h1 { border-bottom: 2px solid #d32f2f; padding-bottom: 8px; font-size: 24px; }
+  h2 { margin-top: 18px; margin-bottom: 8px; font-size: 20px; border-left: 5px solid #d32f2f; padding-left: 10px; }
+  .step-bar { display: flex; gap: 8px; margin: 16px 0 20px 0; justify-content: space-between; }
+  .step { flex: 1; text-align: center; padding: 6px 4px; border-radius: 999px; background-color: #ddd; font-size: 13px; cursor: pointer; }
+  .step.active { background-color: #e0f0ff; border: 1px solid #1976d2; }
+  .word-bank-sticky-container { position: sticky; top: 0; z-index: 1001; background-color: #f4f4f9; padding: 10px 0; border-bottom: 2px solid #ccc; }
+  .word-bank { border: 2px solid #d32f2f; border-radius: 8px; padding: 12px; min-height: 60px; display: flex; flex-wrap: wrap; gap: 8px; background-color: #fff; display: none; }
+  .word-chip { padding: 8px 12px; border: 1px solid #666; border-radius: 18px; background-color: #fff; cursor: pointer; font-size: 14px; }
+  .word-chip.used { opacity: 0.3; }
+  .word-chip.selected-chip { border-color: #1976d2; background-color: #e3f2fd; box-shadow: 0 0 0 2px #bbdefb; }
+  .section { background-color: #fff; border-radius: 8px; padding: 20px; border: 1px solid #ccc; margin-bottom: 16px; }
+  .blank { display: inline-block; min-width: 100px; min-height: 26px; border-bottom: 2px solid #d32f2f; margin: 0 4px; text-align: center; vertical-align: middle; cursor: pointer; font-weight: bold; color: #d32f2f; }
+  .blank.correct { background-color: #ffeb3b; }
+  .fixed-footer-controls { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #fff; border-top: 2px solid #ccc; padding: 15px 0; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+  .footer-inner { max-width: 960px; margin: 0 auto; padding: 0 20px; text-align: center; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  button { padding: 10px 20px; border-radius: 8px; border: none; background-color: #007bff; color: #fff; cursor: pointer; font-size: 15px; font-weight: bold; box-shadow: 0 3px 0 #0056b3; }
+  button.secondary { background-color: #6c757d; box-shadow: 0 3px 0 #495057; }
+  .timer-info { margin-top: 10px; padding: 6px 15px; font-size: 16px; border: 1px solid #007bff; background-color: #fff; display: inline-block; }
+  .explain-box { margin-top: 15px; padding: 15px; border-left: 5px solid #007bff; background-color: #f0f4ff; display: none; text-align: left; }
+</style>
+</head>
+<body>
+
+<h1>⑦ 桃山文化</h1>
+
+<div class="step-bar">
+  <div class="step" onclick="location.href='sengoku1.html'">① 十字軍とルネサンス</div>
+  <div class="step" onclick="location.href='sengoku2.html'">② 新航路の発見</div>
+  <div class="step" onclick="location.href='sengoku3.html'">③ 宗教改革と伝来</div>
+  <div class="step active">④ 鉄砲伝来と南蛮貿易</div>
+  <div class="step" onclick="location.href='sengoku5.html'">⑤ 織田信長の統一</div>
+  <div class="step" onclick="location.href='sengoku6.html'">⑥ 豊臣秀吉の統一</div>
+  <div class="step" onclick="location.href='sengoku7.html'">⑦ 桃山文化</div>
+</div>
+
+<div class="word-bank-sticky-container">
+  <div style="font-weight:bold; font-size:14px; margin-bottom:5px;">【語群】</div>
+  <div class="word-bank" id="word-bank"></div>
+</div>
+
+<div class="section">
+  <h2>豪華な芸術と新しい風潮</h2>
+  <div class="question-text">
+    信長・秀吉の時代には、富を背景にした<span class="blank" data-id="A">豪華</span>で壮大な<span class="blank" data-id="B">桃山</span>文化が栄えました。姫路城のような高い天守閣を持つ城が築かれ、内部は<span class="blank" data-id="C">狩野永徳</span>らが描いた豪華な障壁画で飾られました。
+    <ul>
+      <li>茶道：<span class="blank" data-id="D">千利休</span>が「わび茶」を大成しました。</li>
+      <li>芸能：出雲の<span class="blank" data-id="E">阿国</span>が<span class="blank" data-id="F">歌舞伎</span>踊りを始めました。</li>
+      <li>工芸：朝鮮から連れてこられた陶工により、佐賀県で<span class="blank" data-id="G">有田焼</span>がつくられました。</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h2>自治都市と鉄砲</h2>
+  <div class="question-text">
+    大坂の<span class="blank" data-id="H">堺</span>は、大商人たちが自治を行う都市として栄え、「東洋のベニス」とも呼ばれました。信長はこの堺を支配下におき、大量の<span class="blank" data-id="I">鉄砲</span>を作らせて戦力にしました。
+  </div>
+</div>
+
+<div class="fixed-footer-controls">
+  <div class="footer-inner">
+    <div class="controls">
+      <button onclick="startChallenge()">チャレンジ開始</button>
+      <button onclick="checkAnswers()">判定</button>
+      <button class="secondary" onclick="location.reload()">やり直す</button>
+      <button class="secondary" onclick="toggleExplain()">【解説】</button>
+    </div>
+    <div class="timer-info" id="timer-display">経過時間：---</div>
+    <div class="explain-box" id="explain-box">
+      【解説】：桃山文化は、戦国時代の力強さと海外（南蛮・朝鮮）の影響が混ざり合った、日本独自の華やかな文化です。
+    </div>
+  </div>
+</div>
+
+<script>
+  const answers = { A:"豪華", B:"桃山", C:"狩野永徳", D:"千利休", E:"阿国", F:"歌舞伎", G:"有田焼", H:"堺", I:"鉄砲" };
+  /* スクリプト共通 */
+  let startTime, timerId, selectedChip = null;
+  function renderBank() {
+    const bank = document.getElementById('word-bank'); bank.style.display = "flex"; bank.innerHTML = "";
+    [...new Set(Object.values(answers))].sort(() => Math.random() - 0.5).forEach(word => {
+      const chip = document.createElement('div'); chip.className = 'word-chip'; chip.textContent = word;
+      chip.onclick = () => { document.querySelectorAll('.word-chip').forEach(c => c.classList.remove('selected-chip')); selectedChip = chip; chip.classList.add('selected-chip'); };
+      bank.appendChild(chip);
+    });
+  }
+  function startChallenge() {
+    document.querySelectorAll('.blank').forEach(b => { b.textContent = ""; b.classList.remove('correct'); });
+    renderBank(); startTime = Date.now(); if (timerId) clearInterval(timerId);
+    timerId = setInterval(() => { document.getElementById('timer-display').textContent = `経過時間：${Math.floor((Date.now() - startTime) / 1000)}秒`; }, 1000);
+  }
+  document.querySelectorAll('.blank').forEach(blank => {
+    blank.onclick = () => {
+      if (selectedChip) {
+        const oldText = blank.textContent; if (oldText) document.querySelectorAll('.word-chip').forEach(c => { if(c.textContent === oldText) c.classList.remove('used'); });
+        blank.textContent = selectedChip.textContent; selectedChip.classList.add('used'); selectedChip.classList.remove('selected-chip'); selectedChip = null;
+      } else if (blank.textContent) {
+        const txt = blank.textContent; document.querySelectorAll('.word-chip').forEach(c => { if(c.textContent === txt) c.classList.remove('used'); }); blank.textContent = "";
+      }
+    };
+  });
+  function checkAnswers() {
+    let ok = true; document.querySelectorAll('.blank').forEach(b => { if (b.textContent === answers[b.dataset.id]) b.classList.add('correct'); else ok = false; });
+    if (ok) { clearInterval(timerId); alert("全問正解！お疲れ様でした。"); }
+  }
+  function toggleExplain() { const box = document.getElementById('explain-box'); box.style.display = (box.style.display === 'block') ? 'none' : 'block'; }
+</script>
+</body>
+</html>

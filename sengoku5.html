@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>歴史学習GAMBA：sengoku5</title>
+<style>
+  body { font-family: "Meiryo", sans-serif; max-width: 960px; margin: 20px auto; line-height: 1.8; background-color: #f4f4f9; font-size: 16px; padding-bottom: 300px; }
+  h1 { border-bottom: 2px solid #d32f2f; padding-bottom: 8px; font-size: 24px; }
+  h2 { margin-top: 18px; margin-bottom: 8px; font-size: 20px; border-left: 5px solid #d32f2f; padding-left: 10px; }
+  .step-bar { display: flex; gap: 8px; margin: 16px 0 20px 0; justify-content: space-between; }
+  .step { flex: 1; text-align: center; padding: 6px 4px; border-radius: 999px; background-color: #ddd; font-size: 13px; cursor: pointer; }
+  .step.active { background-color: #e0f0ff; border: 1px solid #1976d2; }
+  .word-bank-sticky-container { position: sticky; top: 0; z-index: 1001; background-color: #f4f4f9; padding: 10px 0; border-bottom: 2px solid #ccc; }
+  .word-bank { border: 2px solid #d32f2f; border-radius: 8px; padding: 12px; min-height: 60px; display: flex; flex-wrap: wrap; gap: 8px; background-color: #fff; display: none; }
+  .word-chip { padding: 8px 12px; border: 1px solid #666; border-radius: 18px; background-color: #fff; cursor: pointer; font-size: 14px; }
+  .word-chip.used { opacity: 0.3; }
+  .word-chip.selected-chip { border-color: #1976d2; background-color: #e3f2fd; box-shadow: 0 0 0 2px #bbdefb; }
+  .section { background-color: #fff; border-radius: 8px; padding: 20px; border: 1px solid #ccc; margin-bottom: 16px; }
+  .blank { display: inline-block; min-width: 100px; min-height: 26px; border-bottom: 2px solid #d32f2f; margin: 0 4px; text-align: center; vertical-align: middle; cursor: pointer; font-weight: bold; color: #d32f2f; }
+  .blank.correct { background-color: #ffeb3b; }
+  .fixed-footer-controls { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #fff; border-top: 2px solid #ccc; padding: 15px 0; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+  .footer-inner { max-width: 960px; margin: 0 auto; padding: 0 20px; text-align: center; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  button { padding: 10px 20px; border-radius: 8px; border: none; background-color: #007bff; color: #fff; cursor: pointer; font-size: 15px; font-weight: bold; box-shadow: 0 3px 0 #0056b3; }
+  button.secondary { background-color: #6c757d; box-shadow: 0 3px 0 #495057; }
+  .timer-info { margin-top: 10px; padding: 6px 15px; font-size: 16px; border: 1px solid #007bff; background-color: #fff; display: inline-block; }
+  .explain-box { margin-top: 15px; padding: 15px; border-left: 5px solid #007bff; background-color: #f0f4ff; display: none; text-align: left; }
+</style>
+</head>
+<body>
+
+<h1>⑤ 織田信長の統一事業</h1>
+
+<div class="step-bar">
+  <div class="step" onclick="location.href='sengoku1.html'">① 十字軍とルネサンス</div>
+  <div class="step" onclick="location.href='sengoku2.html'">② 新航路の発見</div>
+  <div class="step" onclick="location.href='sengoku3.html'">③ 宗教改革と伝来</div>
+  <div class="step active">④ 鉄砲伝来と南蛮貿易</div>
+  <div class="step" onclick="location.href='sengoku5.html'">⑤ 織田信長の統一</div>
+  <div class="step" onclick="location.href='sengoku6.html'">⑥ 豊臣秀吉の統一</div>
+  <div class="step" onclick="location.href='sengoku7.html'">⑦ 桃山文化</div>
+</div>
+
+<div class="word-bank-sticky-container">
+  <div style="font-weight:bold; font-size:14px; margin-bottom:5px;">【語群】</div>
+  <div class="word-bank" id="word-bank"></div>
+</div>
+
+<div class="section">
+  <h2>天下統一への歩み</h2>
+  <div class="question-text">
+    1560年、織田信長は駿河の今川義元を<span class="blank" data-id="A">桶狭間</span>の戦いで破りました。1573年には将軍の<span class="blank" data-id="B">足利義昭</span>を追放して<span class="blank" data-id="C">室町</span>幕府を滅ぼしました。また、1575年の<span class="blank" data-id="D">長篠</span>の戦いでは、大量の<span class="blank" data-id="E">鉄砲</span>を使用して武田勝頼の騎馬軍団を打ち破りました。しかし1582年、家臣の<span class="blank" data-id="F">明智光秀</span>の謀反により、<span class="blank" data-id="G">本能寺の変</span>で自害しました。
+  </div>
+</div>
+
+<div class="section">
+  <h2>信長の政策</h2>
+  <div class="question-text">
+    信長は琵琶湖の東に<span class="blank" data-id="H">安土城</span>を築き、天下統一の拠点としました。経済政策では、同業者組合の「座」を廃止して自由に商売をさせる<span class="blank" data-id="I">楽市楽座</span>を行い、各地の<span class="blank" data-id="J">関所</span>を廃止して交通と流通を盛んにしました。宗教面では比叡山延暦寺などを弾圧する一方、貿易の利益や仏教勢力を抑える目的で<span class="blank" data-id="K">キリスト</span>教を保護しました。
+  </div>
+</div>
+
+<div class="fixed-footer-controls">
+  <div class="footer-inner">
+    <div class="controls">
+      <button onclick="startChallenge()">チャレンジ開始</button>
+      <button onclick="checkAnswers()">判定</button>
+      <button class="secondary" onclick="location.reload()">やり直す</button>
+      <button id="next-btn" onclick="location.href='sengoku6.html'">次へ進む ▶</button>
+      <button class="secondary" onclick="toggleExplain()">【解説】</button>
+    </div>
+    <div class="timer-info" id="timer-display">経過時間：---</div>
+    <div class="explain-box" id="explain-box">
+      【解説】：信長は旧来の特権（座や関所）を破壊することで経済を活性化させ、新兵器の鉄砲をいち早く軍隊に取り入れました。
+    </div>
+  </div>
+</div>
+
+<script>
+  const answers = { A:"桶狭間", B:"足利義昭", C:"室町", D:"長篠", E:"鉄砲", F:"明智光秀", G:"本能寺の変", H:"安土城", I:"楽市楽座", J:"関所", K:"キリスト" };
+  let startTime, timerId, selectedChip = null;
+  function renderBank() {
+    const bank = document.getElementById('word-bank'); bank.style.display = "flex"; bank.innerHTML = "";
+    [...new Set(Object.values(answers))].sort(() => Math.random() - 0.5).forEach(word => {
+      const chip = document.createElement('div'); chip.className = 'word-chip'; chip.textContent = word;
+      chip.onclick = () => { document.querySelectorAll('.word-chip').forEach(c => c.classList.remove('selected-chip')); selectedChip = chip; chip.classList.add('selected-chip'); };
+      bank.appendChild(chip);
+    });
+  }
+  function startChallenge() {
+    document.querySelectorAll('.blank').forEach(b => { b.textContent = ""; b.classList.remove('correct'); });
+    renderBank(); startTime = Date.now(); if (timerId) clearInterval(timerId);
+    timerId = setInterval(() => { document.getElementById('timer-display').textContent = `経過時間：${Math.floor((Date.now() - startTime) / 1000)}秒`; }, 1000);
+  }
+  document.querySelectorAll('.blank').forEach(blank => {
+    blank.onclick = () => {
+      if (selectedChip) {
+        const oldText = blank.textContent; if (oldText) document.querySelectorAll('.word-chip').forEach(c => { if(c.textContent === oldText) c.classList.remove('used'); });
+        blank.textContent = selectedChip.textContent; selectedChip.classList.add('used'); selectedChip.classList.remove('selected-chip'); selectedChip = null;
+      } else if (blank.textContent) {
+        const txt = blank.textContent; document.querySelectorAll('.word-chip').forEach(c => { if(c.textContent === txt) c.classList.remove('used'); }); blank.textContent = "";
+      }
+    };
+  });
+  function checkAnswers() {
+    let ok = true; document.querySelectorAll('.blank').forEach(b => { if (b.textContent === answers[b.dataset.id]) b.classList.add('correct'); else ok = false; });
+    if (ok) { clearInterval(timerId); alert("合格！"); }
+  }
+  function toggleExplain() { const box = document.getElementById('explain-box'); box.style.display = (box.style.display === 'block') ? 'none' : 'block'; }
+</script>
+</body>
+</html>

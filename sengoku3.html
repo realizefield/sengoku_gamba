@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>歴史学習GAMBA：sengoku3</title>
+<style>/* sengoku1と同じスタイル */
+  body { font-family: "Meiryo", sans-serif; max-width: 960px; margin: 20px auto; line-height: 1.8; background-color: #f4f4f9; font-size: 16px; padding-bottom: 300px; }
+  h1 { border-bottom: 2px solid #d32f2f; padding-bottom: 8px; font-size: 24px; }
+  h2 { margin-top: 18px; margin-bottom: 8px; font-size: 20px; border-left: 5px solid #d32f2f; padding-left: 10px; }
+  .step-bar { display: flex; gap: 8px; margin: 16px 0 20px 0; justify-content: space-between; }
+  .step { flex: 1; text-align: center; padding: 6px 4px; border-radius: 999px; background-color: #ddd; font-size: 13px; cursor: pointer; }
+  .step.active { background-color: #e0f0ff; border: 1px solid #1976d2; }
+  .word-bank-sticky-container { position: sticky; top: 0; z-index: 1001; background-color: #f4f4f9; padding: 10px 0; border-bottom: 2px solid #ccc; }
+  .word-bank { border: 2px solid #d32f2f; border-radius: 8px; padding: 12px; min-height: 60px; display: flex; flex-wrap: wrap; gap: 8px; background-color: #fff; display: none; }
+  .word-chip { padding: 8px 12px; border-radius: 18px; border: 1px solid #666; background-color: #fff; cursor: pointer; font-size: 14px; }
+  .word-chip.used { opacity: 0.3; }
+  .word-chip.selected-chip { border-color: #1976d2; background-color: #e3f2fd; box-shadow: 0 0 0 2px #bbdefb; }
+  .section { background-color: #fff; border-radius: 8px; padding: 20px; border: 1px solid #ccc; margin-bottom: 16px; }
+  .blank { display: inline-block; min-width: 100px; min-height: 26px; border-bottom: 2px solid #d32f2f; margin: 0 4px; text-align: center; cursor: pointer; font-weight: bold; color: #d32f2f; }
+  .blank.correct { background-color: #ffeb3b; }
+  .fixed-footer-controls { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #fff; border-top: 2px solid #ccc; padding: 15px 0; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+  .footer-inner { max-width: 960px; margin: 0 auto; padding: 0 20px; text-align: center; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  button { padding: 10px 20px; border-radius: 8px; border: none; background-color: #007bff; color: #fff; cursor: pointer; font-size: 15px; font-weight: bold; box-shadow: 0 3px 0 #0056b3; }
+  button.secondary { background-color: #6c757d; box-shadow: 0 3px 0 #495057; }
+  .timer-info { margin-top: 10px; padding: 6px 15px; font-size: 16px; border: 1px solid #007bff; background-color: #fff; display: inline-block; }
+  .explain-box { margin-top: 15px; padding: 15px; border-left: 5px solid #007bff; background-color: #f0f4ff; display: none; text-align: left; }
+</style>
+</head>
+<body>
+
+<h1>③ 宗教改革から日本への伝来：世界と日本がつながった時代</h1>
+
+<div class="step-bar">
+  <div class="step" onclick="location.href='sengoku1.html'">① 十字軍とルネサンス</div>
+  <div class="step" onclick="location.href='sengoku2.html'">② 新航路の発見</div>
+  <div class="step active">③ 宗教改革と伝来</div>
+  <div class="step" onclick="location.href='sengoku4.html'">④ 鉄砲伝来と南蛮貿易</div>
+  <div class="step" onclick="location.href='sengoku5.html'">⑤ 織田信長の統一</div>
+  <div class="step" onclick="location.href='sengoku6.html'">⑥ 豊臣秀吉の統一</div>
+  <div class="step" onclick="location.href='sengoku7.html'">⑦ 桃山文化</div>
+</div>
+
+<div class="word-bank-sticky-container">
+  <div style="font-weight:bold; font-size:14px; margin-bottom:5px;">【語群】（チャレンジ開始を押すとここに語句が出ます）</div>
+  <div class="word-bank" id="word-bank"></div>
+</div>
+
+<div class="section">
+  <h2>1. ヨーロッパの宗教改革とプロテスタント</h2>
+  <div class="question-text">
+    16 世紀ごろ、ヨーロッパではカトリック教会の腐敗が問題になりました。ローマ教皇が教会の修理費を集めるために「<span class="blank" data-id="A">免罪符</span>（罪が許されるお札）」を販売したことに対し、ドイツの<span class="blank" data-id="B">ルター</span>やフランスの<span class="blank" data-id="C">カルバン</span>が反論し、<span class="blank" data-id="D">宗教改革</span>を行いました。彼らの教えを信じる人々は「抗議する人」という意味でプロテスタントと呼ばれ、新しい宗派として広がっていきました。
+  </div>
+</div>
+
+<div class="section">
+  <h2>2. イエズス会の設立とキリスト教の伝来</h2>
+  <div class="question-text">
+    プロテスタントが広がる一方で、カトリック教会はアジアやアフリカへの布教を目指し、<span class="blank" data-id="E">フランシスコ・ザビエル</span>らを中心に<span class="blank" data-id="F">イエズス会</span>を設立しました。<br><br>
+    1549 年（【暗記】以後よく来る）、<span class="blank" data-id="G">フランシスコ・ザビエル</span>は日本の<span class="blank" data-id="H">鹿児島</span>にやってきて、キリスト教を伝えました。これが日本におけるキリスト教伝来の始まりです。
+  </div>
+</div>
+
+<div class="fixed-footer-controls">
+  <div class="footer-inner">
+    <div class="controls">
+      <button onclick="startChallenge()">チャレンジ開始</button>
+      <button onclick="checkAnswers()">判定</button>
+      <button class="secondary" onclick="location.reload()">この段落をやり直す</button>
+      <button class="secondary" onclick="resetTimer()">時間リセット</button>
+      <button id="next-btn" onclick="location.href='sengoku4.html'" disabled>次の段落へ進む ▶</button>
+      <button class="secondary" onclick="toggleExplain()">【解説】を見る</button>
+    </div>
+    <div class="timer-info" id="timer-display">経過時間：---</div>
+    <div class="explain-box" id="explain-box">
+      【解説】：免罪符の販売への反発から始まった宗教改革が、キリスト教の新しい潮流を生み、結果として日本への伝来に繋がりました。
+    </div>
+  </div>
+</div>
+
+<script>
+  const answers = { A:"免罪符", B:"ルター", C:"カルバン", D:"宗教改革", E:"フランシスコ・ザビエル", F:"イエズス会", G:"フランシスコ・ザビエル", H:"鹿児島" };
+  // スクリプト省略なし（sengoku1と同様の動作）
+  let startTime, timerId, selectedChip = null;
+  function renderBank() {
+    const bank = document.getElementById('word-bank'); bank.style.display = "flex"; bank.innerHTML = "";
+    [...new Set(Object.values(answers))].sort(() => Math.random() - 0.5).forEach(word => {
+      const chip = document.createElement('div'); chip.className = 'word-chip'; chip.textContent = word;
+      chip.onclick = () => { document.querySelectorAll('.word-chip').forEach(c => c.classList.remove('selected-chip')); selectedChip = chip; chip.classList.add('selected-chip'); };
+      bank.appendChild(chip);
+    });
+  }
+  function startChallenge() {
+    document.querySelectorAll('.blank').forEach(b => { b.textContent = ""; b.classList.remove('correct'); });
+    renderBank(); startTime = Date.now(); if (timerId) clearInterval(timerId);
+    timerId = setInterval(() => { document.getElementById('timer-display').textContent = `経過時間：${Math.floor((Date.now() - startTime) / 1000)}秒`; }, 1000);
+  }
+  document.querySelectorAll('.blank').forEach(blank => {
+    blank.onclick = () => {
+      if (selectedChip) {
+        const oldText = blank.textContent; if (oldText) document.querySelectorAll('.word-chip').forEach(c => { if(c.textContent === oldText) c.classList.remove('used'); });
+        blank.textContent = selectedChip.textContent; selectedChip.classList.add('used'); selectedChip.classList.remove('selected-chip'); selectedChip = null;
+      } else if (blank.textContent) {
+        const txt = blank.textContent; document.querySelectorAll('.word-chip').forEach(c => { if(c.textContent === txt) c.classList.remove('used'); }); blank.textContent = "";
+      }
+    };
+  });
+  function checkAnswers() {
+    let ok = true; document.querySelectorAll('.blank').forEach(b => { if (b.textContent === answers[b.dataset.id]) b.classList.add('correct'); else ok = false; });
+    if (ok) { clearInterval(timerId); document.getElementById('next-btn').disabled = false; }
+  }
+  function resetTimer() { clearInterval(timerId); document.getElementById('timer-display').textContent = "経過時間：---"; }
+  function toggleExplain() { const box = document.getElementById('explain-box'); box.style.display = (box.style.display === 'block') ? 'none' : 'block'; }
+</script>
+</body>
+</html>
